@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3 Cleaners — Clean Spaces. Better Places.</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Google Font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========== CSS CUSTOM PROPERTIES (Brand Colors — extracted from logo) ========== */
+    :root {
+      --primary-blue:  #016BBD;   /* Circle arc & "3" — dominant blue in logo */
+      --dark-navy:     #02204A;   /* "CLEANERS" wordmark — darkest navy in logo */
+      --accent-green:  #7CB750;   /* Leaves & bucket — exact green from logo */
+      --light-bg:      #F0F7FF;   /* Alternating section backgrounds (tinted blue-white) */
+      --text-dark:     #02204A;   /* Body copy matches brand navy */
+      --text-muted:    #5A6E8A;   /* Subtitles, captions, descriptions */
+    }
+
+    /* ========== BASE ========== */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    /* ========== NAVBAR ========== */
+    .navbar {
+      background: #fff;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      padding: 1rem 0;
+    }
+
+    .navbar-brand { text-decoration: none; line-height: 1; }
+
+    .nav-link {
+      color: var(--text-dark) !important;
+      font-weight: 500;
+      margin: 0 0.4rem;
+      transition: color 0.3s;
+    }
+
+    .nav-link:hover { color: var(--primary-blue) !important; }
+
+    /* ========== BUTTONS ========== */
+    .btn-brand {
+      background: var(--primary-blue);
+      border: none;
+      color: #fff;
+      padding: 0.65rem 1.6rem;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-brand:hover {
+      background: var(--dark-navy);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .btn-green {
+      background: var(--accent-green);
+      border: none;
+      color: #fff;
+      padding: 0.65rem 1.6rem;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-green:hover {
+      background: #619040;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      background: linear-gradient(135deg, #EFF6FF 0%, #F0FDF4 100%);
+      padding: 6rem 0 5rem;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--dark-navy);
+      line-height: 1.15;
+    }
+
+    .hero h1 span { color: var(--primary-blue); }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin: 1.5rem 0 2rem;
+    }
+
+    .hero-visual {
+      font-size: 13rem;
+      color: var(--primary-blue);
+      opacity: 0.92;
+    }
+
+    /* ========== SECTION LAYOUT ========== */
+    section { padding: 5rem 0; }
+
+    .section-title { text-align: center; margin-bottom: 3rem; }
+
+    .section-title h2 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--dark-navy);
+    }
+
+    .section-title .accent {
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--accent-green);
+      border-radius: 2px;
+      margin: 1rem auto;
+    }
+
+    .section-title p {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ========== ABOUT ========== */
+    .about { background: #fff; }
+
+    .about-feature { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+
+    .about-feature .icon {
+      width: 52px;
+      height: 52px;
+      background: var(--primary-blue);
+      color: #fff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    /* Distinct icon color per feature using nth-child */
+    .about-feature:nth-child(2) .icon { background: var(--accent-green); }
+    .about-feature:nth-child(3) .icon { background: var(--dark-navy); }
+
+    .about-feature h5 { font-weight: 700; margin-bottom: 0.25rem; }
+
+    /* ========== SERVICES ========== */
+    .services { background: var(--light-bg); }
+
+    .service-card {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      transition: transform 0.3s, box-shadow 0.3s;
+      height: 100%;
+      border-top: 4px solid var(--primary-blue);
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Alternate cards use green top border */
+    .service-card.green { border-top-color: var(--accent-green); }
+
+    .service-card .icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--primary-blue), var(--dark-navy));
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .service-card.green .icon {
+      background: linear-gradient(135deg, var(--accent-green), #4A7030);
+    }
+
+    .service-card h4 {
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin-bottom: 0.75rem;
+    }
+
+    .service-card p { color: var(--text-muted); margin: 0; }
+
+    /* ========== PRICING ========== */
+    .pricing { background: #fff; }
+
+    .price-card {
+      background: #fff;
+      padding: 2.5rem 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      transition: transform 0.3s;
+      height: 100%;
+      border: 2px solid transparent;
+    }
+
+    /* Featured card (Standard) is scaled up and bordered */
+    .price-card.featured {
+      border-color: var(--primary-blue);
+      transform: scale(1.04);
+    }
+
+    .price-card.featured .tag {
+      background: var(--accent-green);
+      color: #fff;
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+
+    .price-card:hover { transform: translateY(-6px); }
+    .price-card.featured:hover { transform: scale(1.04) translateY(-6px); }
+
+    .price-card h3 {
+      color: var(--dark-navy);
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .price {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--primary-blue);
+      margin: 1rem 0;
+    }
+
+    .price small {
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .price-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+      text-align: left;
+    }
+
+    .price-card ul li {
+      padding: 0.4rem 0;
+      color: var(--text-muted);
+    }
+
+    .price-card ul li i {
+      color: var(--accent-green);
+      margin-right: 0.5rem;
+    }
+
+    /* ========== CONTACT ========== */
+    .contact {
+      background: linear-gradient(135deg, var(--dark-navy) 0%, var(--primary-blue) 100%);
+      color: #fff;
+    }
+
+    .contact .section-title h2 { color: #fff; }
+    .contact .section-title p { color: rgba(255, 255, 255, 0.85); }
+
+    .contact-info-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1.25rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .contact-info-card .ci-icon {
+      font-size: 1.4rem;
+      width: 50px;
+      height: 50px;
+      min-width: 50px;
+      background: var(--accent-green);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-info-card small { opacity: 0.8; }
+
+    .contact-form {
+      background: #fff;
+      padding: 2.5rem;
+      border-radius: 16px;
+      color: var(--text-dark);
+    }
+
+    .contact-form .form-control,
+    .contact-form .form-select {
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      border: 1px solid #E2E8F0;
+    }
+
+    .contact-form .form-control:focus,
+    .contact-form .form-select:focus {
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 0.2rem rgba(30, 91, 175, 0.15);
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      background: var(--dark-navy);
+      color: #fff;
+      padding: 2rem 0;
+      text-align: center;
+    }
+
+    .footer p { margin: 0; color: rgba(255, 255, 255, 0.7); }
+
+    .footer .social a {
+      color: #fff;
+      margin: 0 0.5rem;
+      font-size: 1.3rem;
+      transition: color 0.3s;
+    }
+
+    .footer .social a:hover { color: var(--accent-green); }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      .hero { padding: 4rem 0 3rem; text-align: center; }
+      .hero h1 { font-size: 2.25rem; }
+      .hero-visual { font-size: 7rem; margin-top: 2rem; }
+      .section-title h2 { font-size: 1.85rem; }
+      section { padding: 3.5rem 0; }
+      /* Reset featured pricing card scale on mobile so it fits in 1-col */
+      .price-card.featured { transform: scale(1); }
+      .price-card.featured:hover { transform: translateY(-6px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#home">
+        <img src="assets/3Cleaners_logo.png" alt="3 Cleaners" height="52">
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
+        aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+            <a href="#contact" class="btn btn-brand">Book Now</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h1>Clean Spaces.<br><span>Better Places.</span></h1>
+          <p>Professional cleaning services that bring sparkle to your home and office. Reliable, eco-friendly, and tailored to your needs.</p>
+          <div class="d-flex gap-3 flex-wrap">
+            <a href="#pricing" class="btn btn-brand btn-lg">View Pricing</a>
+            <a href="#contact" class="btn btn-green btn-lg">Get a Quote</a>
+          </div>
+        </div>
+        <div class="col-lg-6 text-center mt-5 mt-lg-0">
+          <!-- Decorative icon; can be replaced with a hero image -->
+          <i class="bi bi-house-heart-fill hero-visual"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section id="about" class="about">
+    <div class="container">
+      <div class="section-title">
+        <h2>About Us</h2>
+        <span class="accent"></span>
+        <p>Your trusted partner for sparkling clean spaces.</p>
+      </div>
+
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <h3 class="fw-bold mb-3" style="color: var(--dark-navy);">Sparkle You Can Trust.</h3>
+          <p class="text-muted">At 3 Cleaners, we believe a clean space leads to a better life. With years of experience, eco-friendly products, and a passionate team, we deliver outstanding results on every visit — whether it's your home, office, or business.</p>
+          <p class="text-muted">Our mission is simple: leave every space cleaner, healthier, and brighter than we found it.</p>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="about-feature">
+            <div class="icon"><i class="bi bi-shield-check"></i></div>
+            <div>
+              <h5>Trusted Professionals</h5>
+              <p class="text-muted mb-0">Vetted, trained, and insured cleaning experts.</p>
+            </div>
+          </div>
+
+          <div class="about-feature">
+            <div class="icon"><i class="bi bi-leaf"></i></div>
+            <div>
+              <h5>Eco-Friendly Products</h5>
+              <p class="text-muted mb-0">Safe for your family, pets, and the planet.</p>
+            </div>
+          </div>
+
+          <div class="about-feature">
+            <div class="icon"><i class="bi bi-star-fill"></i></div>
+            <div>
+              <h5>100% Satisfaction</h5>
+              <p class="text-muted mb-0">We're not done until you're truly happy.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SERVICES ========== -->
+  <section id="services" class="services">
+    <div class="container">
+      <div class="section-title">
+        <h2>Our Services</h2>
+        <span class="accent"></span>
+        <p>Comprehensive cleaning solutions for every space.</p>
+      </div>
+
+      <!-- 6 cards in a 3-col desktop / 2-col tablet / 1-col mobile grid -->
+      <!-- Blue cards: Residential, Deep, Window | Green cards: Office, Move In/Out, Eco -->
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card">
+            <div class="icon"><i class="bi bi-house-fill"></i></div>
+            <h4>Residential Cleaning</h4>
+            <p>Complete home cleaning — kitchens, bathrooms, dusting, and mopping.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card green">
+            <div class="icon"><i class="bi bi-building"></i></div>
+            <h4>Office Cleaning</h4>
+            <p>Keep your workplace fresh, hygienic, and productive every single day.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card">
+            <div class="icon"><i class="bi bi-stars"></i></div>
+            <h4>Deep Cleaning</h4>
+            <p>Top-to-bottom intensive cleaning for spaces that need extra care.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card green">
+            <div class="icon"><i class="bi bi-box-seam-fill"></i></div>
+            <h4>Move In / Out Cleaning</h4>
+            <p>Make moving stress-free with a thorough start-fresh service.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card">
+            <div class="icon"><i class="bi bi-window"></i></div>
+            <h4>Window Cleaning</h4>
+            <p>Crystal-clear windows inside and out for a brighter view.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card green">
+            <div class="icon"><i class="bi bi-recycle"></i></div>
+            <h4>Eco-Friendly Cleaning</h4>
+            <p>Green cleaning with non-toxic products safe for everyone.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PRICING ========== -->
+  <section id="pricing" class="pricing">
+    <div class="container">
+      <div class="section-title">
+        <h2>Simple, Honest Pricing</h2>
+        <span class="accent"></span>
+        <p>Choose the plan that fits your needs. No hidden fees, ever.</p>
+      </div>
+
+      <div class="row g-4 justify-content-center">
+        <!-- Basic -->
+        <div class="col-md-6 col-lg-4">
+          <div class="price-card">
+            <h3>Basic</h3>
+            <p class="text-muted">Perfect for regular upkeep</p>
+            <div class="price">$89<small>/visit</small></div>
+            <ul>
+              <li><i class="bi bi-check-circle-fill"></i>Up to 2 bedrooms</li>
+              <li><i class="bi bi-check-circle-fill"></i>Kitchen &amp; bathroom clean</li>
+              <li><i class="bi bi-check-circle-fill"></i>Vacuum &amp; mop floors</li>
+              <li><i class="bi bi-check-circle-fill"></i>Dusting surfaces</li>
+              <li><i class="bi bi-check-circle-fill"></i>Trash removal</li>
+            </ul>
+            <a href="#contact" class="btn btn-brand w-100">Get Started</a>
+          </div>
+        </div>
+
+        <!-- Standard (featured / most popular) -->
+        <div class="col-md-6 col-lg-4">
+          <div class="price-card featured">
+            <span class="tag">Most Popular</span>
+            <h3>Standard</h3>
+            <p class="text-muted">Our most-loved plan</p>
+            <div class="price">$149<small>/visit</small></div>
+            <ul>
+              <li><i class="bi bi-check-circle-fill"></i>Up to 4 bedrooms</li>
+              <li><i class="bi bi-check-circle-fill"></i>All Basic services</li>
+              <li><i class="bi bi-check-circle-fill"></i>Interior windows</li>
+              <li><i class="bi bi-check-circle-fill"></i>Appliance cleaning</li>
+              <li><i class="bi bi-check-circle-fill"></i>Eco-friendly products</li>
+            </ul>
+            <a href="#contact" class="btn btn-brand w-100">Get Started</a>
+          </div>
+        </div>
+
+        <!-- Premium -->
+        <div class="col-md-6 col-lg-4">
+          <div class="price-card">
+            <h3>Premium</h3>
+            <p class="text-muted">For the ultimate clean</p>
+            <div class="price">$229<small>/visit</small></div>
+            <ul>
+              <li><i class="bi bi-check-circle-fill"></i>Unlimited rooms</li>
+              <li><i class="bi bi-check-circle-fill"></i>Deep cleaning included</li>
+              <li><i class="bi bi-check-circle-fill"></i>Inside oven &amp; fridge</li>
+              <li><i class="bi bi-check-circle-fill"></i>Carpet shampoo</li>
+              <li><i class="bi bi-check-circle-fill"></i>Premium add-ons</li>
+            </ul>
+            <a href="#contact" class="btn btn-brand w-100">Get Started</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="section-title">
+        <h2>Get In Touch</h2>
+        <span class="accent"></span>
+        <p>Ready for a sparkling clean space? Reach out today!</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Contact Info Cards -->
+        <div class="col-lg-5">
+          <div class="contact-info-card">
+            <div class="ci-icon"><i class="bi bi-telephone-fill"></i></div>
+            <div>
+              <small class="d-block">Call us</small>
+              <strong>+1 (555) 123-4567</strong>
+            </div>
+          </div>
+
+          <div class="contact-info-card">
+            <div class="ci-icon"><i class="bi bi-envelope-fill"></i></div>
+            <div>
+              <small class="d-block">Email us</small>
+              <strong>hello@3cleaners.com</strong>
+            </div>
+          </div>
+
+          <div class="contact-info-card">
+            <div class="ci-icon"><i class="bi bi-geo-alt-fill"></i></div>
+            <div>
+              <small class="d-block">Visit us</small>
+              <strong>123 Clean Street, Your City</strong>
+            </div>
+          </div>
+
+          <div class="contact-info-card">
+            <div class="ci-icon"><i class="bi bi-clock-fill"></i></div>
+            <div>
+              <small class="d-block">Hours</small>
+              <strong>Mon–Sat, 8 AM – 6 PM</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="col-lg-7">
+          <div class="contact-form">
+            <h4 class="fw-bold mb-4" style="color: var(--dark-navy);">Send us a message</h4>
+            <!--
+              TO CONNECT THIS FORM:
+              Option A — Formspree: change <form action="https://formspree.io/f/YOUR_ID" method="POST">
+              Option B — Getform:   change <form action="https://getform.io/f/YOUR_ID" method="POST">
+              Option C — Custom backend: point action at your own API endpoint
+            -->
+            <form>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <input type="text" class="form-control" placeholder="Your Name" name="name" required>
+                </div>
+                <div class="col-md-6">
+                  <input type="email" class="form-control" placeholder="Your Email" name="email" required>
+                </div>
+                <div class="col-md-6">
+                  <input type="tel" class="form-control" placeholder="Phone" name="phone">
+                </div>
+                <div class="col-md-6">
+                  <select class="form-select" name="service">
+                    <option value="">Select a service</option>
+                    <option>Residential Cleaning</option>
+                    <option>Office Cleaning</option>
+                    <option>Deep Cleaning</option>
+                    <option>Move In / Out</option>
+                    <option>Window Cleaning</option>
+                    <option>Eco-Friendly Cleaning</option>
+                  </select>
+                </div>
+                <div class="col-12">
+                  <textarea class="form-control" rows="4" placeholder="Tell us about your space..." name="message"></textarea>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-brand w-100">Send Message</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="social mb-2">
+        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" aria-label="Twitter / X"><i class="bi bi-twitter-x"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      </div>
+      <p>&copy; 2025 3 Cleaners. Clean Spaces. Better Places.</p>
+      <p class="mt-1" style="font-size: 0.8rem; color: rgba(255,255,255,0.45);">
+        Developed &amp; maintained by <a href="https://prismit-solutions.com/" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.65); text-decoration: none; font-weight: 600; transition: color 0.3s;" onmouseover="this.style.color='#7CB750'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">Prismit360</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle (includes Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Smooth scroll to target section + auto-close mobile hamburger menu
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+          const navCollapse = document.querySelector('.navbar-collapse');
+          if (navCollapse.classList.contains('show')) {
+            bootstrap.Collapse.getInstance(navCollapse).hide();
+          }
+        }
+      });
+    });
+
+    // Active nav-link highlight on scroll (IntersectionObserver)
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.classList.toggle(
+              'active',
+              link.getAttribute('href') === '#' + entry.target.id
+            );
+          });
+        }
+      });
+    }, { threshold: 0.4 });
+
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>
